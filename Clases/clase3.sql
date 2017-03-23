@@ -26,6 +26,7 @@ WHERE film.language_id = `language`.language_id
 AND film.`length` > 100 AND `language`.name = 'English';
 
 -- ordenar
+
 SELECT title, special_features, rental_rate, name
 FROM film, film_category, category
 WHERE film.film_id = film_category.film_id
@@ -39,11 +40,13 @@ AND film_category.category_id = category.category_id
 ORDER BY rental_rate DESC, special_features ASC;
 
 -- palabra
+
 SELECT title, special_features
 FROM film 
 WHERE special_features LIKE '%Trailers%';
 
 -- letra
+
 SELECT address
 FROM address
 WHERE address LIKE '%z_%';
