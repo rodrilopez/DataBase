@@ -4,25 +4,28 @@ SELECT first_name, last_name
 FROM actor a1
 WHERE EXISTS (SELECT *
 			  FROM actor a2
-			  WHERE a1.last_name = a2.last_name)
+			  WHERE a1.last_name = a2.last_name
+			  AND a1.last_name = a2.last_name)
 ORDER BY last_name;
 
 -- 2
 
 SELECT actor_id
 FROM actor
-WHERE actor_id NOT IN (SELECT actor_id
+WHERE actor_id NOT IN (SELECT DISTINCT actor_id
 				  	   FROM film_actor);
 				  	   
 -- 3
 
-SELECT c1.first_name 
-FROM customer c1
-WHERE c1.customer_id IN (SELECT c2.customer_id 
-					     FROM rental, customer c2
-					     WHERE c1.customer_id = rental.customer_id
-					     AND c1.customer_id <> c2.customer_id );
-					   
+SELECT c.customer_id, c.first_name, c.last_name
+FROM rental r1, customer c
+WHERE NOT EXISTS (SELECT * 
+				  FROM rental r2
+				  WHERE r1.customer_id = r2.customer_id
+				  AND r1.rental_id <> r2.rental_id )
+AND r1.customer_id = c.customer_id
+ORDER BY 1;
+
 -- 4 	
 				     
 SELECT c1.first_name 
@@ -34,7 +37,7 @@ WHERE c1.customer_id IN (SELECT c2.customer_id
 					     
 -- 5
 	
-SELECT a1.first_name, a1.last_name
+SELECT DISTINCT a1.first_name, a1.last_name
 FROM actor a1, film, film_actor
 WHERE film_actor.actor_id = a1.actor_id
 AND film_actor.film_id = film.film_id
@@ -67,4 +70,4 @@ SELECT DISTINCT a1.first_name, a1.last_name
 FROM actor a1, film, film_actor
 WHERE film_actor.actor_id = a1.actor_id
 AND film_actor.film_id = film.film_id
-AND (film.title <> 'BETRAYED REAR' AND film.title <> 'CATCH AMISTAD');
+AND (film.title <> 'BETRAYED REAR' OR film.title <> 'CATCH AMISTAD');
