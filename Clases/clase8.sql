@@ -2,8 +2,8 @@
 -- el que menos pago y su appellido comienx¿za en R
 SELECT MIN(amount)
 FROM  customer, payment
-WHERE customer.customer_id = payment.customer_id
-AND customer.last_name LIKE 'R%';
+WHERE customer.customer_id = payment.customer_id;
+-- AND customer.last_name LIKE 'R%';
 
 
 -- todas las copias de peliculas
@@ -60,7 +60,7 @@ FROM (SELECT AVG(length) av
 -- resta de las dos tablas
 
 SELECT str1.av - other_stores.av
-FROM (SELECT AVG(length) av 
+FROM (SELECT AVG(length) AS av 
 		FROM film
 		WHERE film_id IN (SELECT film_id
 							FROM inventory
