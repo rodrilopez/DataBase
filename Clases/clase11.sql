@@ -47,6 +47,38 @@ WHERE f1.film_id NOT IN (SELECT film_id
 						   
 -- 5
 
-SELECT
+SELECT *
+FROM (SELECT title, inventory_id 
+		FROM film 
+		JOIN inventory 
+		USING(film_id)) a 
+WHERE inventory_id NOT IN (SELECT DISTINCT inventory_id FROM rental);
 
 
+-- 6
+
+SELECT first_name, last_name, c.store_id, title, rental_date, return_date
+FROM customer c
+JOIN rental USING(customer_id)
+JOIN inventory USING(inventory_id)
+JOIN film USING(film_id)
+ORDER BY c.store_id, last_name;
+
+
+SELECT title, name  FROM film 
+       INNER JOIN film_category 
+               ON film.film_id = film_category.film_id 
+       INNER JOIN category 
+               ON film_category.category_id = category.category_id;
+               
+SELECT title, name
+  FROM film, film_category, category
+ WHERE film.film_id = film_category.film_id
+   AND film_category.category_id = category.category_id; 
+
+SELECT title, name  FROM film 
+       JOIN film_category 
+            USING ( film_id ) 
+       JOIN category 
+            USING ( category_id );  
+               
