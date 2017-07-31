@@ -51,6 +51,6 @@ UPDATE film SET length = 200 WHERE film_id = 182;
 
 SELECT title,length 
 FROM film f1
-WHERE length > ALL (SELECT length 
+WHERE NOT EXISTS (SELECT length 
 					FROM film f2
-					WHERE f2.film_id<>f1.film_id);
+					WHERE f2.`length` < f1.`length`);
