@@ -34,9 +34,9 @@ AND film.film_id = film_category.film_id;
 
 SELECT first_name, last_name, title
 FROM actor, film, film_actor
-WHERE film.title LIKE 'ZOOLANDER FICTION'
-AND film.film_id = film_actor.film_id
-AND film_actor.actor_id = actor.actor_id;
+WHERE film.title LIKE '%_a%';
+-- AND film.film_id = film_actor.film_id
+-- AND film_actor.actor_id = actor.actor_id;
 
 -- 6  
 
