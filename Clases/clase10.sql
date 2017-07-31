@@ -62,5 +62,6 @@ FROM actor a
 	NATURAL JOIN actor b;
 	
 	
-	
-SELECT
+INSERT INTO inventory
+(film_id, store_id, last_update)
+VALUES(1,1,'2017-02-15 05:09:17.000');
