@@ -52,5 +52,23 @@ insert  into `employees`(`employeeNumber`,`lastName`,`firstName`,`extension`,`em
 
 -- ej2
 
-UPDATE employee set employeeNumber = employeeNumber - 20;
-UPDATE employee set employeeNumber = employeeNumber + 20;
+UPDATE employees set employeeNumber = employeeNumber - 20;
+
+-- What did happen? Explain.
+-- Le quito a cada empleado, en employeeNumbre 20 de su valor original 
+SELECT * FROM employees;
+
+-- Then run this other
+UPDATE employees set employeeNumber = employeeNumber + 20;
+
+-- El mensaje que me devuelve es: SQL Error [1062] [23000]: Duplicate entry '1056' for key 'PRIMARY'
+-- Lo que pasa es que un empleado (Phan) tiene justo 20 menos que otro (Firrelli) entonces cuando quiere sumarle 20 
+-- a employeeNumber (de Phan) se vuelven los dos empleados con el mismo employeeNumber (Firrelli y Phan). Como es la primary key 
+-- no se puede repetir entonces te devuelve ese error.
+
+-- ej3
+
+ALTER TABLE employees
+	ADD `age` INT NOT NULL CHECK (age >=16 AND age <=70);
+	
+	
