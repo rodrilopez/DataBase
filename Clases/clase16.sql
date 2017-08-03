@@ -46,8 +46,11 @@ FROM employees_audit;
 
 -- ej1
 
-
+insert  into `employees`(`employeeNumber`,`lastName`,`firstName`,`extension`,`email`,`officeCode`,`reportsTo`,`jobTitle`) values 
+(1002,'Murphy','Diane','x5800', NULL,'1',NULL,'President');
+-- you get an error SQL Error [1048] [23000]: Column 'email' cannot be null
 
 -- ej2
+
 UPDATE employee set employeeNumber = employeeNumber - 20;
 UPDATE employee set employeeNumber = employeeNumber + 20;
