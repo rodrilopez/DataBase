@@ -44,3 +44,17 @@ CREATE INDEX address_code ON address(postal_code);
 SELECT first_name FROM actor WHERE first_name LIKE "%Christian%";
 
 SELECT last_name FROM actor WHERE last_name LIKE "%Grey%";
+
+-- ej3
+
+ALTER TABLE film_text
+ADD FULLTEXT(description);
+
+
+SELECT description
+FROM film_text
+WHERE description like '%Drama%';
+
+SELECT description
+FROM film_text
+WHERE MATCH(description) AGAINST('Drama');
