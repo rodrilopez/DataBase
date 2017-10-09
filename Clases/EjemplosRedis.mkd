@@ -1,0 +1,288 @@
+>>>> #Redis:
+
+###Strings Examples:
+
+#####1: Creando un String
+> redis:6379> set string1 Kolombo
+
+> OK
+
+> redis:6379> get string1
+
+> "Kolombo"
+
+#####2: Contando las lentras de un String
+> redis:6379> strlen string1
+
+> (integer) 7
+
+#####3: Seteando muchos valores
+> redis:6379> mset nombre ivan apellido aradas edad dieciocho colegio villada
+
+> OK
+
+> redis:6379> mget nombre apellido edad colegio
+
+> 1) "ivan"
+> 2) "aradas"
+> 3) "dieciocho"
+> 4) "villada"
+
+
+#####4: Eliminando un String
+> redis:6379> exists string1
+
+> (integer) 1
+
+> redis:6379> del string1
+
+> (integer) 1
+
+> redis:6379> exists string1
+
+> (integer) 0
+
+---
+
+###Hashes Examples:
+
+#####1: Creando un Hash
+> redis:6379> hset sosa1 usuario sosinguidinguidingui contrasena 12345678C permisos Admin
+
+> (integer) 3
+
+> redis:6379> hget sosa1 usuario
+
+> "sosinguidinguidingui"
+
+> redis:6379> hget sosa1 contraseña
+
+> "12345678C"
+
+> redis:6379> hget sosa1 permisos
+
+> "Admin"
+
+> redis:6379> hgetall sosa1
+
+> 1) "usuario"
+> 2) "sosinguidinguidingui"
+> 3) "contrasena"
+> 4) "12345678C"
+> 5) "permisos"
+
+#####2: Tamaño de un Hash
+> redis:6379> hlen sosa1
+
+> (integer) 3
+
+#####3: Incrementanto el valor de in INT en un Hash
+> redis:6379> hset sosa1 edad 10
+
+> (integer) 1
+
+> redis:6379> hget sosa1 edad
+
+> "10"
+
+> redis:6379> hincrby sosa1 edad 10
+
+> (integer) 20
+
+> redis:6379> hget sosa1 edad
+
+> "20"
+
+#####4: Devolviendo solo los valores del Hash
+> redis:6379> hvals sosa1
+
+> 1) "sosinguidinguidingui"
+> 2) "12345678C"
+> 3) "Admin"
+> 4) "20"
+
+---
+
+###Lists Examples:
+
+#####1: Creando una Lista
+> redis:6379> rpush lista1 1
+
+> (integer) 1
+
+> redis:6379> rpush lista1 2
+
+> (integer) 2
+
+> redis:6379> lpush lista1 primero
+
+> (integer) 3
+
+> redis:6379> lrange lista1 0 -1
+
+> 1) "primero"
+> 2) "1"
+> 3) "2"
+
+#####2: Insertando un valos BEFORE|AFTER de otro valor
+> redis:6379> linsert lista1 after primero segundo
+
+> (integer) 4
+
+> redis:6379> lrange lista1 0 -1
+
+> 1) "primero"
+> 2) "segundo"
+> 3) "1"
+> 4) "2"
+
+#####3: Añadiendo muchos valores
+> redis:6379> rpush list2 1 2 3 4 5 "foo bar"
+
+> (integer) 6
+
+> redis:6379> lrange list2 0 -1
+
+> 1) "1"
+> 2) "2"
+> 3) "3"
+> 4) "4"
+> 5) "5"
+> 6) "foo bar"
+
+#####4: Eliminando valores de una Lista
+> redis:6379> rpop list2
+
+> "foo bar"
+
+> redis:6379> rpop list2
+
+> "5"
+
+> redis:6379> rpop list2
+
+> "4"
+
+> redis:6379> rpop list2
+
+> "3"
+
+> redis:6379> rpop list2
+
+> "2"
+
+> redis:6379> rpop list2
+
+> "1"
+
+> redis:6379> rpop list2
+
+> (nil)
+
+---
+
+###Sets Examples:
+
+#####1: Creando un Set
+> redis:6379> sadd nico hola foo 1
+
+> (integer) 3
+
+> redis:6379> smembers nico
+
+> 1) "hola"
+> 2) "1"
+> 3) "foo"
+
+#####2: Cantidad de elementos en un Set
+> redis:6379> scard nico
+
+> (integer) 3
+
+#####3: Remover un valor de un Set
+> redis:6379> srem nico hola
+
+> (integer) 1
+
+> redis:6379> smembers nico
+
+> 1) "1"
+> 2) "foo"
+
+#####4: Verificar si es miembro del Set
+> redis:6379> smembers nico
+
+> 1) "1"
+> 2) "foo"
+
+> redis:6379> sismember nico hola
+
+> (integer) 0
+
+> redis:6379> sismember nico foo
+
+> (integer) 1
+
+---
+
+###Sorted Sets Examples:
+
+#####1: Creando Stored Sets
+> redis:6379> zadd fran 1 "hello" 2 "foo" 1 "pana" 3 "pono"
+
+> (integer) 4
+
+> redis:6379> zrange fran 0 -1 withscores
+
+> 1) "hello"
+> 2) "1"
+> 3) "pana"
+> 4) "1"
+> 5) "foo"
+> 6) "2"
+> 7) "pono"
+> 8) "3"
+
+#####2: Contando los elemnetos dentro del Store por min y max
+> redis:6379> zcount fran 1 3
+
+> (integer) 4
+
+> redis:6379> zcount fran 1 1
+
+> (integer) 2
+
+#####3: Fijarse si un elemento esta y si esta devuleve el rank
+> redis:6379> zrank fran pana
+
+> (integer) 1
+
+> redis:6379> zrank fran sdnaisd
+
+> (nil)
+
+> redis:6379> zrank fran pono
+
+> (integer) 3
+
+#####4: Remover un elemento del Store
+> redis:6379> zrange fran 0 -1
+
+> 1) "hello"
+> 2) "pana"
+> 3) "foo"
+> 4) "pono"
+
+> redis:6379> zrem fran pana
+
+> (integer) 1
+
+> redis:6379> zrange fran 0 -1
+
+> 1) "hello"
+> 2) "foo"
+> 3) "pono"
+
+---
+
+###

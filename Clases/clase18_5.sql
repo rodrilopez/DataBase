@@ -15,7 +15,7 @@ BEGIN
 	RETURN (amount_films);
 END
 
-SELECT GetCountOfFilmByID(1,2);
+SELECT GetCountOfFilmByID(1,1);
 
 -- ej 2
 
