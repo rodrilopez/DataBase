@@ -78,7 +78,7 @@ AND date_ordered = '2003-01-02';
 
 
 
-
+werfr
 
 -- 7
 -- Multicolumn subquery
