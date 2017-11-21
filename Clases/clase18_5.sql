@@ -61,3 +61,14 @@ SELECT @names_list;
 
 -- ej 3
 
+-- Debido a que esta película no se ha devuelto todavía, no está disponible. Entonces la función devuelve 0..
+SELECT inventory_in_stock(4106);
+
+-- Esta película está en stock, por lo que la función devuelve 1.
+SELECT inventory_in_stock(327);
+
+-- La funcion recive el id de la pelicula y del store, de ahi muestra el numero de copias de esa pelicula que estan en stock en ese store.
+-- Lo logra al verificar el estado de stock de las entradas en el inventario con la función inventory_in_stock.
+
+CALL film_in_stock(167, 1, @film_stock);
+SELECT @film_stock;

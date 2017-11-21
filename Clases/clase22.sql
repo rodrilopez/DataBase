@@ -26,6 +26,7 @@ AND orders.vendor_key NOT IN (
     WHERE vendor_state = 'MA')
 AND date_ordered < '2003-03-01';
 
+
 -- Devuelve numero de orden y la fecha de la orden, donde el estado 
 -- del setore sea MA, el vendedor no sea del estado MA y la fecha de la 
 -- orden no sea mayor a 2003/03/01.
@@ -76,9 +77,17 @@ AND date_ordered = '2003-01-02';
 -- Orders placed by the vendor who got the best deal 
 -- on January 4, 2004
 
+SELECT MAX(public.vendor_dimension.deal_size)
+FROM store.store_orders_fact, public.vendor_dimension
+WHERE date_ordered='2004-01-04';
 
+SELECT MAX(public.vendor_dimension.deal_size)
+FROM store.store_orders_fact f , public.vendor_dimension
+WHERE EXISTS (SELECT 1
+				FROM public.vendor_dimension d
+				WHERE d.vendor_key = f.vendor_key)
+AND date_ordered = '2004-01-04';
 
-werfr
 
 -- 7
 -- Multicolumn subquery
